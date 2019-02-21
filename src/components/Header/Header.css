@@ -1,0 +1,83 @@
+.menuBox {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.menuText {
+	font-family: 'Montserrat', sans-serif;
+	font-size: calc(10px + 0.6vmin);
+	margin: 3vmin;
+	font-weight: 600;
+	letter-spacing: 1px;
+	word-spacing: 1px;
+	color: #d8d8d8;
+	text-decoration: none;
+	transition: all 0.2s ease-in-out;
+	/* border: 2px solid #000000; */
+}
+
+.menuText:hover {
+	color: #000000;
+	font-weight: 600;
+}
+
+.logo {
+	/* border: 2px solid #000000; */
+	height: calc(30px + 4vmin);
+	margin-left: calc(1px + 5vmin);
+	margin-right: calc(1px + 5vmin);
+}
+
+.menu {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
+	margin: 0;
+	z-index: 1;
+	top: 0;
+	width: 100%;
+}
+
+.searchBox {
+	display: flex;
+	margin-left: 3vmin;
+	margin-right: 3vmin;
+	align-items: center;
+	/* border: 2px solid #ff0f0f; */
+}
+
+.searchInput {
+	margin-left: 6vmin;
+	border: none;
+	font-size: calc(10px + 0.6vmin);
+	padding-left: 5px;
+	padding-right: 20px;
+	outline: none;
+	font-weight: 500;
+	font-family: 'Montserrat', sans-serif;
+	letter-spacing: 1px;
+	word-spacing: 1px;
+	border-bottom: 1.4px solid rgb(204, 204, 204);
+	transition: all 0.1s ease-in-out;
+}
+
+.searchInput:focus {
+	border-bottom: 2px solid rgb(34, 130, 255);
+	border-radius: 5px;
+	font-weight: 500;
+	font-family: 'Montserrat', sans-serif;
+	letter-spacing: 1px;
+	word-spacing: 1px;
+}
+
+.searchInput::placeholder {
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 500;
+	color: #d8d8d8;
+	letter-spacing: 1px;
+	word-spacing: 1px;
+}

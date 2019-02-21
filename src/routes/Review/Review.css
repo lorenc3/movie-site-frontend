@@ -1,0 +1,175 @@
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+fieldset,
+label {
+	margin: 0;
+	padding: 0;
+}
+h1 {
+	font-size: 1.5em;
+	margin: 10px;
+}
+textarea {
+	outline: none;
+	resize: none;
+	background-color: rgba(230, 230, 230, 0.329);
+	border: none;
+	border-radius: 10px;
+	font-size: 13px;
+	padding: 20px;
+	margin-left: 30px;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.19);
+	outline: none;
+	font-weight: 600;
+	font-family: 'Montserrat', sans-serif;
+	letter-spacing: 1px;
+	word-spacing: 1px;
+	transition: all 0.1s ease-in-out;
+}
+
+.movieImageRe {
+	object-fit: contain;
+	max-height: 400px;
+	z-index: 1;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.19);
+}
+
+.reviewBox {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	max-height: 100%;
+	width: 100%;
+	/* border: 2px solid rgb(255, 123, 0); */
+}
+
+.reviewText {
+	color: #000000;
+	border: none;
+	outline: none;
+	text-align: center;
+	margin: 60px 0 30px 60px;
+	background: none;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 25px;
+	max-width: 50%;
+	text-align: start;
+	word-wrap: wrap;
+	font-weight: 600;
+	letter-spacing: 1px;
+	/* border: 2px solid red; */
+}
+
+.reviewMovieBox {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	width: 100%;
+	min-height: 200px;
+	/* border: 3px solid blue; */
+}
+
+.reviewInfoBox {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: flex-start;
+	width: 50%;
+	min-height: 200px;
+	/* border: 3px solid blue; */
+}
+
+.reviewSectionText {
+	color: #000000;
+	border: none;
+	outline: none;
+	/* margin: 50px 0 0 0; */
+	text-align: start;
+	background: none;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 15px;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+}
+
+.reviewButtonBox {
+	display: flex;
+	width: 67%;
+	margin-left: 30px;
+	margin-top: 8%;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	/* border: 3px solid blue; */
+}
+
+.reviewButton {
+	height: 35px;
+	min-height: 35px;
+	width: 200px;
+	background-color: rgb(32, 73, 255);
+	border: none;
+	color: white;
+	border-radius: 3px;
+	cursor: pointer;
+	font-size: 14px;
+	outline: none;
+	font-weight: 600;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	font-family: 'Montserrat', sans-serif;
+	letter-spacing: 1px;
+	word-spacing: 1px;
+	transition: all 0.2s ease-in-out;
+}
+
+.reviewButton:active {
+	box-shadow: none;
+}
+
+.reviewButton:hover {
+	opacity: 0.8;
+}
+/****** Style Star Rating Widget *****/
+
+.rating {
+	border: none;
+	float: left;
+}
+
+.rating > input {
+	display: none;
+}
+.rating > label:before {
+	margin: 5px;
+	font-size: 1.25em;
+	font-family: FontAwesome;
+	display: inline-block;
+	content: '\f005';
+}
+
+.rating > .half:before {
+	content: '\f089';
+	position: absolute;
+}
+
+.rating > label {
+	color: #ddd;
+	float: right;
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label {
+	color: #ffd700;
+} /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label {
+	color: #ffed85;
+}
