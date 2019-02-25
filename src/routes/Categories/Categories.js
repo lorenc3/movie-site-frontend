@@ -63,7 +63,7 @@ class Categories extends Component {
 
 	render() {
 		return (
-			<Layout className="routeBox" activeRoute={1}>
+			<Layout className="routeBox" activeRoute={1} user={this.props.user}>
 				<div className="categoriesBox">{this.renderCategories()}</div>
 			</Layout>
 		);

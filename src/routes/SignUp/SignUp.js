@@ -1,26 +1,50 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
+import Rodal from 'rodal';
 
 import Layout from '../../components/Layout/Layout';
 
 import './SignUp.css';
+import 'rodal/lib/rodal.css';
 
 class SignUp extends Component {
 	constructor() {
 		super();
 
 		this.handleClick = this.handleClick.bind(this);
+		this.handleGenreClick = this.handleGenreClick.bind(this);
 		this.handleEmail = this.handleEmail.bind(this);
 		this.handleName = this.handleName.bind(this);
 		this.handlePass = this.handlePass.bind(this);
 		this.renderForm = this.renderForm.bind(this);
+		this.renderCategories = this.renderCategories.bind(this);
+		this.show = this.show.bind(this);
+		this.hide = this.hide.bind(this);
 
 		this.state = {
 			email: '',
 			password: '',
-			name: ''
+			name: '',
+			redirect: false,
+			visible: false,
+			selectedGenres: [],
+			genres: []
 		};
+	}
+
+	componentDidMount() {
+		axios
+			.get(
+				'https://api.themoviedb.org/3/genre/movie/list?api_key=52847a5fec3921c2383c109952fa0141&language=en-US'
+			)
+			.then(response => {
+				const genres = response.data.genres.slice(0, 18);
+				this.setState({ genres });
+			})
+			.catch(err => {
+				console.log(err);
+			});
 	}
 
 	handleEmail(event) {
@@ -39,9 +63,56 @@ class SignUp extends Component {
 	}
 
 	handleClick() {
-		//POST req to users collection with email, pass & name
-		//and get the user back.
-		//then this.props.onSignUp(user);
+		//POST req to users collection with email, pass,
+		//name and selectedGenres arr and get the user back.
+		this.setState({ redirect: true }, () => {
+			//then this.props.onSignUp(user);
+		});
+	}
+
+	handleGenreClick(name) {
+		if (this.state.selectedGenres.includes(name)) {
+			var selected = [...this.state.selectedGenres];
+			var index = selected.indexOf(name);
+			selected.splice(index, 1);
+			this.setState({ selectedGenres: selected });
+		} else if (this.state.selectedGenres.length < 3) {
+			var newArr = [...this.state.selectedGenres, name];
+			this.setState({ selectedGenres: newArr });
+		}
+	}
+
+	show() {
+		this.setState({ visible: true });
+	}
+
+	hide() {
+		this.setState({ visible: false });
+	}
+
+	renderCategories() {
+		return this.state.genres.length !== 0
+			? this.state.genres.map(item => {
+					return (
+						<button
+							key={item.id}
+							onClick={() => this.handleGenreClick(item.name)}
+							className="selectCat"
+							style={
+								this.state.selectedGenres.includes(item.name)
+									? { color: 'red' }
+									: null
+							}
+						>
+							{item.name === 'Documentary'
+								? 'Doc'
+								: item.name && item.name === 'Science Fiction'
+								? 'Sci-Fi'
+								: item.name}
+						</button>
+					);
+			  })
+			: null;
 	}
 
 	renderForm(data) {
@@ -80,23 +151,63 @@ class SignUp extends Component {
 	}
 
 	render() {
+		const { redirect } = this.state;
 		const formData = [
 			{ title: 'Username', placeholder: 'Enter your username' },
 			{ title: 'Email', placeholder: 'Enter your email' },
 			{ title: 'Password', placeholder: 'Enter your password' }
 		];
 		return (
-			<Layout className="routeBox">
-				<div className="loginBox">
-					<p className="loginText">Sign Up</p>
-					<div className="credentialsBox">
-						{this.renderForm(formData)}
+			<Layout className="routeBox" user={this.props.user}>
+				{redirect ? (
+					<Redirect to="/" />
+				) : (
+					<div className="loginBox">
+						<p className="loginText">Sign Up</p>
+						<div className="credentialsBox">
+							{this.renderForm(formData)}
+						</div>
+						<button className="chooseButton" onClick={this.show}>
+							CHOOSE GENRES
+						</button>
+						<Rodal
+							visible={this.state.visible}
+							height={450}
+							width={450}
+							animation="zoom"
+							onClose={this.hide}
+						>
+							<p className="modalTitle">Choose 3 genres</p>
+							<div className="modalBox">
+								{this.renderCategories()}
+							</div>
+							<button
+								className="modalDone"
+								style={{
+									opacity:
+										this.state.selectedGenres.length !== 3
+											? 0.5
+											: 1
+								}}
+								onClick={this.hide}
+								disabled={
+									this.state.selectedGenres.length !== 3
+								}
+							>
+								Done
+							</button>
+						</Rodal>
+						<button
+							className="signInButton"
+							onClick={this.handleClick}
+						>
+							SIGN UP
+						</button>
+						<Link to={'/login'} className="createAccButton">
+							LOG IN
+						</Link>
 					</div>
-					<button className="signInButton">SIGN UP</button>
-					<Link to={'/login'} className="createAccButton">
-						LOG IN
-					</Link>
-				</div>
+				)}
 			</Layout>
 		);
 	}

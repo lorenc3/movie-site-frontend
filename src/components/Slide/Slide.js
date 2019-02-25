@@ -22,7 +22,8 @@ class Slide extends Component {
 	renderSlide() {
 		const { nowPlaying, width, maxWidth, userBookmarks } = this.props;
 		return nowPlaying.map((item, key) => {
-			var bookmark = userBookmarks.includes(item.id);
+			var bookmark =
+				userBookmarks !== null ? userBookmarks.includes(item.id) : null;
 			return (
 				<div key={key}>
 					<div

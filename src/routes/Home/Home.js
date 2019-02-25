@@ -81,11 +81,11 @@ class Home extends Component {
 	}
 
 	render() {
-		const { userBookmarks } = this.props;
+		const { userBookmarks, user } = this.props;
 		const { nowPlaying, value } = this.state;
 		console.log('RENDER');
 		return (
-			<Layout activeRoute={0}>
+			<Layout activeRoute={0} user={user}>
 				<div>
 					{nowPlaying.length !== 0 ? (
 						<Slide

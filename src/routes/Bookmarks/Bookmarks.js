@@ -8,11 +8,13 @@ import './Bookmarks.css';
 const maxWidth = window.screen.availWidth;
 
 class Bookmarks extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
+
+		this.handleContent = this.handleContent.bind(this);
 
 		this.state = {
-			movies: []
+			movies: props.bookmarksCollection
 		};
 
 		window.onscroll = () => {
@@ -27,26 +29,42 @@ class Bookmarks extends Component {
 		};
 	}
 
-	componentDidMount() {
-		const { bookmarksCollection } = this.props;
-		this.setState({ movies: bookmarksCollection });
-		//GET req to server for bookmarks collection that are created by loged in user
+	handleContent() {
+		const { user, bookmarksCollection, userBookmarks } = this.props;
+		const { movies } = this.state;
+		if (user === null) {
+			return (
+				<div className="bookmarkBox">
+					<p className="bookmarkText">
+						Please login to bookmark movies.
+					</p>
+				</div>
+			);
+		} else if (userBookmarks.length === 0) {
+			return (
+				<div className="bookmarkBox">
+					<p className="bookmarkText">
+						No bookmarked movies available.
+					</p>
+				</div>
+			);
+		}
+
+		return (
+			<MoviesList
+				data={movies}
+				title="Your Bookmarks"
+				onChange={() => {}}
+				sort={false}
+				userBookmarks={userBookmarks}
+			/>
+		);
 	}
 
 	render() {
-		const { userBookmarks } = this.props;
-		const { movies } = this.state;
 		return (
-			<Layout className="routeBox" activeRoute={2}>
-				{this.state.movies.length !== 0 ? (
-					<MoviesList
-						data={movies}
-						title="Your Bookmarks"
-						onChange={() => {}}
-						sort={false}
-						userBookmarks={userBookmarks}
-					/>
-				) : null}
+			<Layout className="routeBox" activeRoute={2} user={this.props.user}>
+				{this.handleContent()}
 			</Layout>
 		);
 	}

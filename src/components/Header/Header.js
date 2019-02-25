@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { IoIosSearch } from 'react-icons/io';
+import {
+	IoIosSearch,
+	IoMdHome,
+	IoMdApps,
+	IoMdLogIn,
+	IoMdBookmark
+} from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import { IconContext } from 'react-icons';
 
@@ -10,11 +16,16 @@ class Header extends Component {
 		super(props);
 
 		this.renderMenu = this.renderMenu.bind(this);
+		this.handleRoute = this.handleRoute.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleScroll = this.handleScroll.bind(this);
+		this.handleClick = this.handleClick.bind(this);
+		this.handleIcons = this.handleIcons.bind(this);
+		this.handleText = this.handleText.bind(this);
 
 		this.state = {
 			scroll: 0,
+			search: false,
 			top: 0
 		};
 	}
@@ -37,7 +48,48 @@ class Header extends Component {
 		this.setState({ scroll: window.scrollY });
 	}
 
+	handleText(item) {
+		if (this.props.user !== null && item === 'Login') {
+			return this.props.user.name;
+		}
+		return item === 'Login' ? 'Log In' : item;
+	}
+
+	handleClick() {
+		this.setState({ search: !this.state.search });
+	}
+
+	handleRoute(item) {
+		if (item === 'Home') {
+			return '/';
+		} else if (this.props.user !== null && item === 'Login') {
+			return '/profile/';
+		}
+		return `/${item.toLowerCase()}/`;
+	}
+
+	handleIcons(route) {
+		switch (route) {
+			case 'Home':
+				return <IoMdHome />;
+				break;
+			case 'Categories':
+				return <IoMdApps />;
+				break;
+			case 'Bookmarks':
+				return <IoMdBookmark />;
+				break;
+			case 'Login':
+				return <IoMdLogIn />;
+				break;
+			default:
+				break;
+		}
+	}
+
 	renderMenu(activeRoute) {
+		const { width, maxWidth } = this.props;
+
 		const menuItems = ['Home', 'Categories', 'Bookmarks', 'Login'];
 
 		return menuItems.map((item, index) => {
@@ -47,9 +99,17 @@ class Header extends Component {
 						key={item.toString()}
 						className="menuText"
 						style={{ color: '#000000', fontWeight: 600 }}
-						to={item === 'Home' ? '/' : `/${item.toLowerCase()}/`}
+						to={this.handleRoute(item)}
 					>
-						{item === 'Login' ? 'Log In' : item}
+						{width < maxWidth * 0.5 ? (
+							<IconContext.Provider
+								value={{ color: '#000000', size: 26 }}
+							>
+								{this.handleIcons(item)}
+							</IconContext.Provider>
+						) : (
+							this.handleText(item)
+						)}
 					</Link>
 				);
 			}
@@ -64,27 +124,55 @@ class Header extends Component {
 								activeRoute === 2
 									? {
 											color: '#000000',
-											fontWeight: 600,
-											margin: 0
+											fontWeight: 600
 									  }
-									: { margin: 0 }
+									: null
 							}
 							to={`/${item.toLowerCase()}/`}
 						>
-							{item}
+							{width < maxWidth * 0.5 ? (
+								<IconContext.Provider
+									value={{
+										color:
+											activeRoute === 2
+												? '#000000'
+												: '#d8d8d8',
+										size: 26
+									}}
+								>
+									{this.handleIcons(item)}
+								</IconContext.Provider>
+							) : (
+								this.handleText(item)
+							)}
 						</Link>
-						<input
-							type="search"
-							value={this.props.value}
-							onChange={this.handleChange}
-							className="searchInput"
-							placeholder="search movies"
-						/>
-						<IconContext.Provider
-							value={{ color: '#cccccc', size: 18 }}
-						>
-							<IoIosSearch style={{ marginLeft: -20 }} />
-						</IconContext.Provider>
+						{width > maxWidth * 0.5 ? (
+							<div className="search">
+								<input
+									type="search"
+									value={this.props.value}
+									onChange={this.handleChange}
+									className="searchInput"
+									placeholder="search movies"
+								/>
+								<IconContext.Provider
+									value={{ color: '#d8d8d8', size: 18 }}
+								>
+									<IoIosSearch style={{ marginLeft: -20 }} />
+								</IconContext.Provider>
+							</div>
+						) : (
+							<button
+								className="menuText"
+								onClick={this.handleClick}
+							>
+								<IconContext.Provider
+									value={{ color: '#d8d8d8', size: 26 }}
+								>
+									<IoIosSearch />
+								</IconContext.Provider>
+							</button>
+						)}
 					</div>
 				);
 			}
@@ -92,23 +180,30 @@ class Header extends Component {
 				<Link
 					key={item.toString()}
 					className="menuText"
-					to={item === 'Home' ? '/' : `/${item.toLowerCase()}/`}
+					to={this.handleRoute(item)}
 				>
-					{item === 'Login' ? 'Log In' : item}
+					{width < maxWidth * 0.5 ? (
+						<IconContext.Provider
+							value={{ color: '#d8d8d8', size: 26 }}
+						>
+							{this.handleIcons(item)}
+						</IconContext.Provider>
+					) : (
+						this.handleText(item)
+					)}
 				</Link>
 			);
 		});
 	}
 
 	render() {
-		const { scroll, top } = this.state;
+		const { scroll, top, search } = this.state;
 		const { width, maxWidth, activeRoute } = this.props;
 		return (
 			<div
 				ref={el => (this.menuRef = el)}
-				className={'menu'}
+				className="menu"
 				style={{
-					flexDirection: width < maxWidth * 0.85 ? 'column' : 'row',
 					boxShadow:
 						scroll > top ? `0 2px 4px 0 rgba(0, 0, 0, 0.19)` : null
 				}}
@@ -121,14 +216,31 @@ class Header extends Component {
 					/>
 				</Link>
 
-				<div
-					className="menuBox"
-					style={{
-						marginLeft: width < maxWidth * 0.85 ? 0 : 150,
-						marginRight: width < maxWidth * 0.85 ? 0 : 150
-					}}
-				>
-					{this.renderMenu(activeRoute)}
+				<div className="menuBox">
+					{!search ? (
+						this.renderMenu(activeRoute)
+					) : (
+						<div className="search">
+							<input
+								type="search"
+								value={this.props.value}
+								onChange={this.handleChange}
+								style={{ width: '60vw', paddingRight: 30 }}
+								className="searchInput"
+								placeholder="search movies"
+							/>
+							<button
+								className="searchBtn"
+								onClick={this.handleClick}
+							>
+								<IconContext.Provider
+									value={{ color: '#d8d8d8', size: 22 }}
+								>
+									<IoIosSearch />
+								</IconContext.Provider>
+							</button>
+						</div>
+					)}
 				</div>
 			</div>
 		);

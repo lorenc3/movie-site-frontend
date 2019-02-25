@@ -20,7 +20,6 @@
 	justify-content: center;
 	align-items: center;
 	width: 30%;
-	height: 100%;
 	/* border-right: 4px solid white; */
 	/* background-color: brown; */
 }
@@ -57,7 +56,7 @@
 	font-family: 'Montserrat', sans-serif;
 	font-size: 12px;
 	font-weight: 600;
-	margin: 0 10px 0 10px;
+	margin: 0 10px 10px 10px;
 	text-align: center;
 	border: 2px solid white;
 	border-radius: 20px;
@@ -70,6 +69,10 @@
 .detailsReviewBtn {
 	font-family: 'Montserrat', sans-serif;
 	font-size: 14px;
+	outline: none;
+	border: none;
+	background: none;
+	cursor: pointer;
 	margin: 0 10px 0 10px;
 	font-weight: 600;
 	text-align: center;

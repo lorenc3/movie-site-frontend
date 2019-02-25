@@ -2,11 +2,19 @@
 	text-align: center;
 }
 
-.App-header {
-	background-color: #ffffff;
+.bookmarkBox {
 	display: flex;
-	flex-direction: column;
+	justify-content: center;
 	align-items: center;
-	font-size: calc(10px + 2vmin);
-	color: rgb(0, 0, 0);
+	width: 100vw;
+	height: 60vh;
+}
+
+.bookmarkText {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 18px;
+	font-weight: 600;
+	color: #f44336;
+	letter-spacing: 1px;
+	word-spacing: 1px;
 }

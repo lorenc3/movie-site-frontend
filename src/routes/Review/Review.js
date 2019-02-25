@@ -79,7 +79,7 @@ class Review extends Component {
 	render() {
 		const { imagePath, width, movieTitle, reviewText } = this.state;
 		return (
-			<Layout className="routeBox">
+			<Layout className="routeBox" user={this.props.user}>
 				<div className="reviewBox">
 					<p className="reviewText">Review - {movieTitle}</p>
 					<div className="reviewMovieBox">

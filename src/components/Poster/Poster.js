@@ -50,7 +50,7 @@ class Poster extends Component {
 		);
 		const { bookmark } = this.state;
 		return (
-			<div className="container" style={{ margin }}>
+			<div className="container" style={{ margin, borderRadius: radius }}>
 				<img
 					className="poster"
 					style={{ borderRadius: radius }}
@@ -60,7 +60,7 @@ class Poster extends Component {
 					}`}
 					alt="poster"
 				/>
-				<div className="overlay">
+				<div className="overlay" style={{ borderRadius: radius }}>
 					<p className="votesText" style={{ fontSize }}>
 						{item.vote_average} TMDB
 					</p>

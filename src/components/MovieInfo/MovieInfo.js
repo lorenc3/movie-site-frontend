@@ -111,10 +111,10 @@ class MovieInfo extends Component {
 				<iframe
 					title={title}
 					className="trailer"
-					// src={`https://videospider.in/getvideo?key=Eqvv2uJrorySaQeS&video_id=${
-					// 	socials.imdb_id
-					// }`}
-					src={`http://vplus.ucoz.com/${socials.imdb_id}`}
+					src={`https://videospider.in/getvideo?key=Eqvv2uJrorySaQeS&video_id=${
+						socials.imdb_id
+					}`}
+					// src={`http://vplus.ucoz.com/${socials.imdb_id}`}
 					frameBorder="0"
 					allowFullScreen
 				/>
@@ -336,6 +336,7 @@ class MovieInfo extends Component {
 
 	renderRecommended() {
 		const { recommendations, index2 } = this.state;
+		const { userBookmarks } = this.props;
 		const scrollIndex2 =
 			index2 + 3 >= recommendations.length ? 2 : index2 + 3;
 		if (recommendations.length === 0) {
@@ -354,6 +355,10 @@ class MovieInfo extends Component {
 				<div className="castCont">
 					<div className="castBox">
 						{recommendations.map((item, i) => {
+							var bookmark =
+								userBookmarks !== null
+									? userBookmarks.includes(item.id)
+									: null;
 							return (
 								<div className="actorBox" key={i} ref={i + 40}>
 									<Poster
@@ -362,6 +367,7 @@ class MovieInfo extends Component {
 										margin={10}
 										fontSize={11}
 										radius="8px"
+										bookmarked={bookmark}
 									/>
 									<p className="actorName">{item.title}</p>
 								</div>
@@ -383,6 +389,7 @@ class MovieInfo extends Component {
 
 	renderSimilar() {
 		const { similar, index1 } = this.state;
+		const { userBookmarks } = this.props;
 		const scrollIndex1 = index1 + 3 >= similar.length ? 2 : index1 + 3;
 		if (similar.length === 0) {
 			return (
@@ -398,6 +405,10 @@ class MovieInfo extends Component {
 				<div className="castCont">
 					<div className="castBox">
 						{similar.map((item, i) => {
+							var bookmark =
+								userBookmarks !== null
+									? userBookmarks.includes(item.id)
+									: null;
 							return (
 								<div className="actorBox" key={i} ref={i + 20}>
 									<Poster
@@ -406,6 +417,7 @@ class MovieInfo extends Component {
 										margin={10}
 										fontSize={11}
 										radius="8px"
+										bookmarked={bookmark}
 									/>
 									<p className="actorName">{item.title}</p>
 								</div>

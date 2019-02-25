@@ -31,7 +31,7 @@ class Details extends Component {
 			reviews: [
 				{
 					id: 12993820,
-					movieId: 12738,
+					movie: { id: 12738, title: 'Venom' },
 					rating: 2.5,
 					text:
 						'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
@@ -41,7 +41,7 @@ class Details extends Component {
 				},
 				{
 					id: 12876182,
-					movieId: 12738,
+					movie: { id: 11738, title: 'Her' },
 					rating: 4,
 					text:
 						'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
@@ -161,13 +161,15 @@ class Details extends Component {
 			reviews
 		} = this.state;
 
+		const { userBookmarks, user } = this.props;
+
 		return (
-			<Layout className="detailsBox">
+			<Layout className="detailsBox" user={this.props.user}>
 				{!_.isEmpty(details) ? (
 					<div className="contentDetailsBox">
 						<div className="fixedInfo">
 							<div className="posterBox">
-								{width >= maxWidth * 0.9 ? (
+								{width >= maxWidth * 0.6 ? (
 									<img
 										onError={this.handleImageError}
 										className="detailsPoster"
@@ -189,16 +191,19 @@ class Details extends Component {
 											? details.runtime + ' min'
 											: 'Unknown'}
 									</p>
-									<Link
-										to={`/review/${details.id}`}
-										className="detailsReviewBtn"
-									>
-										Review
+									<Link to={`/review/${details.id}`}>
+										<button
+											className="detailsReviewBtn"
+											disabled={user === null}
+										>
+											Review
+										</button>
 									</Link>
 								</div>
 							</div>
 						</div>
 						<MovieInfo
+							userBookmarks={userBookmarks}
 							details={details}
 							genres={genres}
 							videoKey={videoKey}

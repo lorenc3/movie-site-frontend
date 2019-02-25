@@ -100,7 +100,7 @@ class Movies extends Component {
 		const { movies } = this.state;
 		const { name } = this.props.location.state;
 		return (
-			<Layout className="routeBox">
+			<Layout className="routeBox" user={this.props.user}>
 				{this.state.movies.length !== 0 ? (
 					<MoviesList
 						data={movies}

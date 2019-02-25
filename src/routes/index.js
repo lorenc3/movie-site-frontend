@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 import Home from './Home/Home';
@@ -10,14 +10,34 @@ import Login from './Login/Login';
 import SignUp from './SignUp/SignUp';
 import Review from './Review/Review';
 import Details from './Details/Details';
+import Profile from './Profile/Profile';
 
 class App extends Component {
 	constructor(props) {
 		super(props);
+
+		this.getUser = this.getUser.bind(this);
+		this.removeUser = this.removeUser.bind(this);
+
 		this.state = {
 			//Placeholder state. Delete and update with data from Db.
-			userBookmarks: [324668, 297761],
-			user: null,
+			// userBookmarks: null,
+			userBookmarks: [297761, 324668],
+			// user: null,
+			user: {
+				id: 1234,
+				name: 'james431',
+				email: 'james2@gmail.com',
+				categories: [
+					{ name: 'Adventure', id: 12 },
+					{ name: 'Sci-Fi', id: 878 },
+					{ name: 'Action', id: 28 }
+				],
+				follows: [1234, 2312],
+				followers: [2312, 3214, 4242, 5112],
+				createdAt: '20.02.2019'
+			},
+			// bookmarksCollection: null
 			bookmarksCollection: [
 				{
 					poster_path: '/e1mjopzAS2KNsvpbpahQ1a6SkSn.jpg',
@@ -53,13 +73,22 @@ class App extends Component {
 					video: false,
 					vote_average: 5.25
 				}
-			] //Array of objects
+			]
+			//Array of objects
 		};
 	}
 
 	getUser(user) {
 		this.setState({ user });
 		//if redux just update the store withe the user
+	}
+
+	removeUser() {
+		this.setState({
+			user: null,
+			userBookmarks: null,
+			bookmarksCollection: null
+		});
 	}
 
 	componentDidMount() {
@@ -119,28 +148,32 @@ class App extends Component {
 							/>
 						)}
 					/>
-					<Route
-						path="/login"
-						render={props => (
-							<Login
-								userBookmarks={userBookmarks}
-								onLogin={this.getUser}
-								user={user}
-								{...props}
+					{user === null ? (
+						<div>
+							<Route
+								path="/login"
+								render={props => (
+									<Login
+										userBookmarks={userBookmarks}
+										onLogin={this.getUser}
+										user={user}
+										{...props}
+									/>
+								)}
 							/>
-						)}
-					/>
-					<Route
-						path="/signup"
-						render={props => (
-							<SignUp
-								userBookmarks={userBookmarks}
-								onSignUp={this.getUser}
-								user={user}
-								{...props}
+							<Route
+								path="/signup"
+								render={props => (
+									<SignUp
+										userBookmarks={userBookmarks}
+										onSignUp={this.getUser}
+										user={user}
+										{...props}
+									/>
+								)}
 							/>
-						)}
-					/>
+						</div>
+					) : null}
 					<Route
 						path="/review/:id"
 						render={props => (
@@ -156,11 +189,25 @@ class App extends Component {
 						render={props => (
 							<Details
 								key={props.match.params.id}
+								userBookmarks={userBookmarks}
 								user={user}
 								{...props}
 							/>
 						)}
 					/>
+					{user !== null ? (
+						<Route
+							path="/profile"
+							render={props => (
+								<Profile
+									user={user}
+									onLogOut={this.removeUser}
+									userBookmarks={userBookmarks}
+									{...props}
+								/>
+							)}
+						/>
+					) : null}
 				</div>
 			</BrowserRouter>
 		);

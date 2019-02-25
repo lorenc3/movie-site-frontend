@@ -77,7 +77,10 @@ class MovieList extends Component {
 				</div>
 				<div className="moviesBox">
 					{data.map((item, i) => {
-						var bookmark = userBookmarks.includes(item.id);
+						var bookmark =
+							userBookmarks !== null
+								? userBookmarks.includes(item.id)
+								: null;
 						return (
 							<div className="moviePosterBox" key={item.id}>
 								<Poster

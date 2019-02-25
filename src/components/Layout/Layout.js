@@ -58,11 +58,12 @@ class Layout extends Component {
 
 	render() {
 		const { value, width } = this.state;
-		const { activeRoute } = this.props;
+		const { activeRoute, user } = this.props;
 		return (
 			<div className="App">
 				<header className="App-header">
 					<Header
+						user={user}
 						activeRoute={activeRoute}
 						width={this.state.width}
 						maxWidth={maxWidth}

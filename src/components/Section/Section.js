@@ -36,7 +36,10 @@ class Section extends Component {
 				<p className="sectionTitleText">{title}</p>
 				<div className="postersBox">
 					{movieList.map((item, i) => {
-						var bookmark = userBookmarks.includes(item.id);
+						var bookmark =
+							userBookmarks !== null
+								? userBookmarks.includes(item.id)
+								: null;
 						return (
 							<div className="posterBox" key={i} ref={i}>
 								<Poster
@@ -50,12 +53,13 @@ class Section extends Component {
 						);
 					})}
 				</div>
-				<Button
-					swipe={() => this.handleScroll(scrollIndex)}
-					textStyle={{ color: 'white' }}
-					boxStyle={{ marginLeft: '90%' }}
-					shapeStyle={{ backgroundColor: '#fff' }}
-				/>
+				<div className="sectionBtn">
+					<Button
+						swipe={() => this.handleScroll(scrollIndex)}
+						textStyle={{ color: 'white' }}
+						shapeStyle={{ backgroundColor: '#fff' }}
+					/>
+				</div>
 			</div>
 		);
 	}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 import Layout from '../../components/Layout/Layout';
@@ -16,7 +16,8 @@ class Login extends Component {
 
 		this.state = {
 			email: '',
-			password: ''
+			password: '',
+			redirect: false
 		};
 	}
 
@@ -33,7 +34,9 @@ class Login extends Component {
 	handleClick() {
 		//GET req to users collection with email and pass
 		//and get the user that matches those credentials
-		//then this.props.onLogin(user);
+		this.setState({ redirect: true }, () => {
+			//then this.props.onLogIn(user);
+		});
 	}
 
 	renderForm(data) {
@@ -64,24 +67,32 @@ class Login extends Component {
 	}
 
 	render() {
+		const { redirect } = this.state;
 		const formData = [
 			{ title: 'Email', placeholder: 'Enter your email' },
 			{ title: 'Password', placeholder: 'Enter your password' }
 		];
 		return (
-			<Layout className="routeBox" activeRoute={3}>
-				<div className="loginBox">
-					<p className="loginText">Sign In</p>
-					<div className="credentialsBox">
-						{this.renderForm(formData)}
+			<Layout className="routeBox" activeRoute={3} user={this.props.user}>
+				{redirect ? (
+					<Redirect to="/" />
+				) : (
+					<div className="loginBox">
+						<p className="loginText">Sign In</p>
+						<div className="credentialsBox">
+							{this.renderForm(formData)}
+						</div>
+						<button
+							className="signInButton"
+							onClick={this.handleClick}
+						>
+							SIGN IN
+						</button>
+						<Link to={'/signup'} className="createAccButton">
+							CREATE AN ACCOUNT
+						</Link>
 					</div>
-					<button className="signInButton" onClick={this.handleClick}>
-						SIGN IN
-					</button>
-					<Link to={'/signup'} className="createAccButton">
-						CREATE AN ACCOUNT
-					</Link>
-				</div>
+				)}
 			</Layout>
 		);
 	}
