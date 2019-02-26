@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
+import _ from 'lodash';
 import Rodal from 'rodal';
 
 import Layout from '../../components/Layout/Layout';
@@ -21,6 +22,7 @@ class SignUp extends Component {
 		this.renderCategories = this.renderCategories.bind(this);
 		this.show = this.show.bind(this);
 		this.hide = this.hide.bind(this);
+		this.hideError = this.hideError.bind(this);
 
 		this.state = {
 			email: '',
@@ -29,7 +31,8 @@ class SignUp extends Component {
 			redirect: false,
 			visible: false,
 			selectedGenres: [],
-			genres: []
+			genres: [],
+			errors: {}
 		};
 	}
 
@@ -63,11 +66,27 @@ class SignUp extends Component {
 	}
 
 	handleClick() {
+		//For testing. Delete.
+		this.setState({
+			errors: {
+				//...
+				_message: 'User validation failed',
+				message:
+					'User validation failed: email: Path `email` is required., password: Path `password` is required.',
+				name: 'ValidationError'
+			}
+		});
 		//POST req to users collection with email, pass,
 		//name and selectedGenres arr and get the user back.
-		this.setState({ redirect: true }, () => {
-			//then this.props.onSignUp(user);
-		});
+
+		//Put this inside the 'then' clause:
+		// if (_.isEmpty(this.state.errors)) {
+		// 	this.setState({ redirect: true }, () => {
+		// 		//then this.props.onSignUp(user);
+		// 	});
+		// }
+
+		//if any errors set the errors state obj to the one returned .
 	}
 
 	handleGenreClick(name) {
@@ -80,6 +99,10 @@ class SignUp extends Component {
 			var newArr = [...this.state.selectedGenres, name];
 			this.setState({ selectedGenres: newArr });
 		}
+	}
+
+	hideError() {
+		this.setState({ errors: {} });
 	}
 
 	show() {
@@ -151,7 +174,7 @@ class SignUp extends Component {
 	}
 
 	render() {
-		const { redirect } = this.state;
+		const { redirect, errors } = this.state;
 		const formData = [
 			{ title: 'Username', placeholder: 'Enter your username' },
 			{ title: 'Email', placeholder: 'Enter your email' },
@@ -206,6 +229,27 @@ class SignUp extends Component {
 						<Link to={'/login'} className="createAccButton">
 							LOG IN
 						</Link>
+						<Rodal
+							visible={!_.isEmpty(this.state.errors)}
+							animation="zoom"
+							onClose={this.hideError}
+						>
+							<p
+								className="modalTitle"
+								style={{ color: '#F44336' }}
+							>
+								Error!
+							</p>
+							<div className="errorBox">
+								<p className="errorMessage">{errors.message}</p>
+								<button
+									className="modalDone"
+									onClick={this.hideError}
+								>
+									OK
+								</button>
+							</div>
+						</Rodal>
 					</div>
 				)}
 			</Layout>
