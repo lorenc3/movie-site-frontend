@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 import Layout from '../../components/Layout/Layout';
 import MoviesList from '../../components/MovieList/MovieList';
 import './Bookmarks.css';
-
-const maxWidth = window.screen.availWidth;
 
 class Bookmarks extends Component {
 	constructor(props) {
@@ -30,7 +27,7 @@ class Bookmarks extends Component {
 	}
 
 	handleContent() {
-		const { user, bookmarksCollection, userBookmarks } = this.props;
+		const { user, userBookmarks } = this.props;
 		const { movies } = this.state;
 		if (user === null) {
 			return (

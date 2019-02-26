@@ -15,7 +15,6 @@ class Section extends Component {
 	}
 
 	handleScroll(i) {
-		console.log(i);
 		this.setState({ index: i });
 
 		this.refs[i].scrollIntoView({

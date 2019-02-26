@@ -65,7 +65,7 @@ class Layout extends Component {
 					<Header
 						user={user}
 						activeRoute={activeRoute}
-						width={this.state.width}
+						width={width}
 						maxWidth={maxWidth}
 						onChange={this.handleValueChange}
 					/>

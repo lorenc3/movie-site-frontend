@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Redirect } from 'react-router-dom';
-import axios from 'axios';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 import Home from './Home/Home';
 import Categories from './Categories/Categories';
@@ -11,6 +10,7 @@ import SignUp from './SignUp/SignUp';
 import Review from './Review/Review';
 import Details from './Details/Details';
 import Profile from './Profile/Profile';
+import UsersProfile from './UsersProfile/UsersProfile';
 
 class App extends Component {
 	constructor(props) {
@@ -197,6 +197,7 @@ class App extends Component {
 					/>
 					{user !== null ? (
 						<Route
+							exact
 							path="/profile"
 							render={props => (
 								<Profile
@@ -208,6 +209,17 @@ class App extends Component {
 							)}
 						/>
 					) : null}
+					<Route
+						path="/profile/:name"
+						render={props => (
+							<UsersProfile
+								key={props.match.params.name}
+								userBookmarks={userBookmarks}
+								user={user}
+								{...props}
+							/>
+						)}
+					/>
 				</div>
 			</BrowserRouter>
 		);

@@ -20,7 +20,7 @@ class Poster extends Component {
 	}
 
 	bookmarkMovie() {
-		const { bookmark, movie } = this.state;
+		const { movie } = this.state;
 		this.setState({ bookmark: !this.state.bookmark }, () => {
 			if (this.state.bookmark) {
 				//Send a Post req to server with item

@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { MdThumbUp } from 'react-icons/md';
 import { IconContext } from 'react-icons';
+import { Link } from 'react-router-dom';
 
 import Layout from '../../components/Layout/Layout';
 import Poster from '../../components/Poster/Poster';
@@ -89,12 +90,7 @@ class Profile extends Component {
 					o[genres[0].name] = genre1Res.data.results.slice(0, 9);
 					o[genres[1].name] = genre2Res.data.results.slice(0, 9);
 					o[genres[2].name] = genre3Res.data.results.slice(0, 9);
-					this.setState(
-						{ genresData: o, active: genres[0].name },
-						() => {
-							console.log(this.state.genresData);
-						}
-					);
+					this.setState({ genresData: o, active: genres[0].name });
 				})
 			)
 			.catch(err => {
@@ -133,16 +129,12 @@ class Profile extends Component {
 		switch (index) {
 			case 1:
 				return '#2C2C54';
-				break;
 			case 2:
 				return '#00563D';
-				break;
 			case 3:
 				return '#F44336';
-				break;
 			default:
 				return '#A40E4C';
-				break;
 		}
 	}
 
@@ -195,17 +187,17 @@ class Profile extends Component {
 								>
 									{item.rating} / 5
 								</p>
-								<p
+								<Link
+									to={`/profile/${item.username}`}
 									className="feedRevDtlsText"
 									style={{
 										backgroundColor: 'none',
 										boxShadow: 'none',
-										color: 'black'
+										color: '#03A9F4'
 									}}
 								>
 									By: {item.username}
-								</p>
-								,
+								</Link>
 								<p
 									className="feedRevDtlsText"
 									style={{
@@ -278,7 +270,6 @@ class Profile extends Component {
 				? genres.findIndex(item => item.name === active)
 				: 3;
 		const review = { name: 'Review' };
-		console.log(activeIndex);
 		return (
 			<Layout user={this.props.user} activeRoute={3}>
 				{redirect ? (

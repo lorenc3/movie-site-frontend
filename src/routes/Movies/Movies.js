@@ -5,8 +5,6 @@ import MoviesList from '../../components/MovieList/MovieList';
 import Layout from '../../components/Layout/Layout';
 import './Movies.css';
 
-const maxWidth = window.screen.availWidth;
-
 class Movies extends Component {
 	constructor() {
 		super();
@@ -59,7 +57,6 @@ class Movies extends Component {
 			)
 			.then(response => {
 				const moviesUpdated = movies.concat(response.data.results);
-				console.log(movies);
 				this.setState({ movies: moviesUpdated, page: page + 1 });
 			})
 			.catch(err => {
@@ -80,7 +77,6 @@ class Movies extends Component {
 				)
 				.then(response => {
 					const moviesSorted = response.data.results;
-					console.log(movies);
 					this.setState({ movies: moviesSorted, page: page + 1 });
 				})
 				.catch(err => {

@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 import Layout from '../../components/Layout/Layout';
 import './Categories.css';
 
-const maxWidth = window.screen.availWidth;
-
 class Categories extends Component {
 	constructor() {
 		super();

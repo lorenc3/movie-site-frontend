@@ -1,0 +1,125 @@
+.usersBox {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 80vh;
+	/* border: 2px solid black; */
+}
+
+.usersCont {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: white;
+	border-bottom: 4px solid #3f51b5;
+	border-radius: 10px;
+	font-size: 13px;
+	padding: 40px;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.19);
+	outline: none;
+	font-weight: 600;
+	font-family: 'Montserrat', sans-serif;
+	letter-spacing: 1px;
+	word-spacing: 1px;
+	transition: all 0.1s ease-in-out;
+}
+
+.nameText {
+	color: #000000;
+	/* border: 2px solid black; */
+	margin: 0;
+	outline: none;
+	text-align: start;
+	background: none;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 36px;
+	font-weight: 600;
+	letter-spacing: 1px;
+}
+
+.followBox {
+	display: flex;
+	flex-direction: row;
+	width: 250px;
+	padding: 5px;
+	/* margin: 0; */
+	justify-content: space-evenly;
+	/* border: 2px solid black; */
+}
+
+.followText {
+	font-family: 'Montserrat', sans-serif;
+	margin: 0;
+	font-size: 13px;
+	font-weight: 600;
+	text-align: center;
+	color: #a1a1a1;
+	letter-spacing: 1px;
+	word-spacing: 1px;
+	/* border: 2px solid black; */
+}
+
+.followButton {
+	min-height: 25px;
+	height: 25px;
+	width: 120px;
+	margin-top: 20px;
+	background-color: #3f51b5;
+	border: none;
+	color: white;
+	border-radius: 30px;
+	cursor: pointer;
+	font-size: 12px;
+	outline: none;
+	font-weight: 600;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.19);
+	font-family: 'Montserrat', sans-serif;
+	letter-spacing: 1px;
+	word-spacing: 1px;
+	transition: all 0.1s ease-in-out;
+}
+
+.followButton:active {
+	box-shadow: none;
+}
+
+.followButton:hover {
+	opacity: 0.9;
+}
+
+.favGenresText {
+	color: #000000;
+	/* border: 2px solid black; */
+	margin-top: 60px;
+	outline: none;
+	text-align: start;
+	background: none;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 16px;
+	font-weight: 600;
+	letter-spacing: 1px;
+}
+
+.favGenresBox {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 300px;
+	padding: 5px;
+	justify-content: space-evenly;
+	/* border: 2px solid black; */
+}
+
+.genreText {
+	font-family: 'Montserrat', sans-serif;
+	margin: 0;
+	font-size: 15px;
+	font-weight: 600;
+	text-align: center;
+	color: #3f51b5;
+	letter-spacing: 1px;
+	word-spacing: 1px;
+}

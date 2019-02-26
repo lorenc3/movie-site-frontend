@@ -82,8 +82,7 @@ class Home extends Component {
 
 	render() {
 		const { userBookmarks, user } = this.props;
-		const { nowPlaying, value } = this.state;
-		console.log('RENDER');
+		const { nowPlaying } = this.state;
 		return (
 			<Layout activeRoute={0} user={user}>
 				<div>

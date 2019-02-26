@@ -502,6 +502,7 @@ class MovieInfo extends Component {
 							<a
 								href={item.url}
 								target="_blank"
+								rel="noopener noreferrer"
 								className="ctgText"
 								key={item.id}
 								style={{
@@ -544,9 +545,12 @@ class MovieInfo extends Component {
 								>
 									{item.rating} / 5
 								</p>
-								<p className="revDtlsText">
+								<Link
+									to={`/profile/${item.username}`}
+									className="revDtlsText"
+								>
 									By: {item.username}
-								</p>
+								</Link>
 							</div>
 							<p className="revText">{item.text}</p>
 							<div className="likeBox">

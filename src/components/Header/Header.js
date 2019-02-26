@@ -72,18 +72,14 @@ class Header extends Component {
 		switch (route) {
 			case 'Home':
 				return <IoMdHome />;
-				break;
 			case 'Categories':
 				return <IoMdApps />;
-				break;
 			case 'Bookmarks':
 				return <IoMdBookmark />;
-				break;
 			case 'Login':
 				return <IoMdLogIn />;
-				break;
 			default:
-				break;
+				return;
 		}
 	}
 
@@ -198,7 +194,7 @@ class Header extends Component {
 
 	render() {
 		const { scroll, top, search } = this.state;
-		const { width, maxWidth, activeRoute } = this.props;
+		const { activeRoute } = this.props;
 		return (
 			<div
 				ref={el => (this.menuRef = el)}
