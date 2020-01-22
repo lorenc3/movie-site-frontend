@@ -1,28 +1,9 @@
 body {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .contentBox {
-	display: flex;
-	flex-direction: column;
-}
-
-.vector {
-	display: flex;
-	top: 28%;
-	left: 80%;
-	position: absolute;
-	height: 480px;
-	width: 30px;
-	border-radius: 20px;
-	background: #a90329;
-	background: -webkit-linear-gradient(
-		-45deg,
-		#a90329 0%,
-		#6d0019 44%,
-		#200122 100%
-	);
-	background: linear-gradient(135deg, #a90329 0%, #6d0019 44%, #200122 100%);
-	transform: rotate(30deg);
+  display: flex;
+  flex-direction: column;
 }

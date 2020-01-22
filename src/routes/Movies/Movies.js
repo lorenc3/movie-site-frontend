@@ -1,114 +1,99 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import { IconContext } from "react-icons";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
-import MoviesList from '../../components/MovieList/MovieList';
-import Layout from '../../components/Layout/Layout';
-import './Movies.css';
+import MoviesList from "../../components/MovieList/MovieList";
+import Layout from "../../components/Layout/Layout";
+import Section from "../../components/Section/Section";
+import "./Movies.css";
 
 class Movies extends Component {
-	constructor() {
-		super();
+  constructor() {
+    super();
 
-		this.handleSortValueChange = this.handleSortValueChange.bind(this);
-		this.getMovies = this.getMovies.bind(this);
-		this.getSortedMovies = this.getSortedMovies.bind(this);
-		// this.movieQuery = this.movieQuery.bind(this);
-		this.state = {
-			valueSort: 'popularity.desc',
-			page: 0,
-			movies: []
-		};
+    this.getMovies = this.getMovies.bind(this);
+    this.handlePage = this.handlePage.bind(this);
+    this.state = {
+      activeFilter: "popularity.desc",
+      page: "1",
+      movies: [],
+      showAdult: true
+    };
+  }
 
-		window.onscroll = () => {
-			if (
-				window.innerHeight + document.documentElement.scrollTop ===
-				document.documentElement.offsetHeight
-			) {
-				if (this.state.page <= 20) {
-					this.getMovies();
-				}
-			}
-		};
-	}
+  componentDidMount() {
+    this.getMovies();
+  }
 
-	componentDidMount() {
-		this.getMovies();
-	}
+  handlePage(page, activeFilter, showAdult) {
+    this.setState({ page, activeFilter, showAdult }, () => {
+      this.getMovies();
+    });
+  }
 
-	// movieQuery() {
-	// 	const { cast, crew } = this.props;
-	// 	if (cast) {
-	// 		return 'with_cast';
-	// 	} else if (crew) {
-	// 		return 'with_crew';
-	// 	}
-	// 	return 'with_genres';
-	// }
+  getMovies() {
+    const { id } = this.props.match.params;
+    const { page, movies, activeFilter, showAdult } = this.state;
+    axios
+      .get(
+        "https://api.themoviedb.org/3/discover/movie?api_key=52847a5fec3921c2383c109952fa0141" +
+          `&language=en-US&region=US&certification_country=US&certification=${
+            showAdult ? "G|PG-13|R|NC-17|NR|PG" : "G|PG-13|NR|PG"
+          }` +
+          `&vote_average.gte=1&vote_count.gte=10&sort_by=${activeFilter}&include_adult=false` +
+          `&include_video=false&page=${page}&with_genres=${id}`
+      )
+      .then(response => {
+        this.setState({ movies: response.data.results });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
-	getMovies() {
-		const { id } = this.props.match.params;
-		const { page, movies } = this.state;
-		axios
-			.get(
-				`https://api.themoviedb.org/3/discover/movie?api_key=52847a5fec3921c2383c109952fa0141&language=en-US&sort_by=${
-					this.state.valueSort
-				}&include_adult=false&include_video=false&page=${page +
-					1}&with_genres=${id}`
-			)
-			.then(response => {
-				const moviesUpdated = movies.concat(response.data.results);
-				this.setState({ movies: moviesUpdated, page: page + 1 });
-			})
-			.catch(err => {
-				console.log(err);
-			});
-	}
-
-	getSortedMovies() {
-		this.setState({ page: 0 }, () => {
-			const { id } = this.props.match.params;
-			const { page, movies } = this.state;
-			axios
-				.get(
-					`https://api.themoviedb.org/3/discover/movie?api_key=52847a5fec3921c2383c109952fa0141&language=en-US&sort_by=${
-						this.state.valueSort
-					}&include_adult=false&include_video=false&page=${page +
-						1}&with_genres=${id}`
-				)
-				.then(response => {
-					const moviesSorted = response.data.results;
-					this.setState({ movies: moviesSorted, page: page + 1 });
-				})
-				.catch(err => {
-					console.log(err);
-				});
-		});
-	}
-
-	handleSortValueChange(value) {
-		this.setState({ valueSort: value }, () => {
-			this.getSortedMovies(this.state.valueSort);
-		});
-	}
-
-	render() {
-		const { userBookmarks } = this.props;
-		const { movies } = this.state;
-		const { name } = this.props.location.state;
-		return (
-			<Layout className="routeBox" user={this.props.user}>
-				{this.state.movies.length !== 0 ? (
-					<MoviesList
-						data={movies}
-						title={name}
-						onChange={this.handleSortValueChange}
-						userBookmarks={userBookmarks}
-						sort={true}
-					/>
-				) : null}
-			</Layout>
-		);
-	}
+  render() {
+    const { userBookmarks } = this.props;
+    const { movies, page, activeFilter, showAdult } = this.state;
+    const { name } = this.props.location.state;
+    const moviesList = [{ name: activeFilter, data: movies }];
+    return (
+      <Layout className="routeBox" user={this.props.user}>
+        <div className="snackBox">
+          <div className="snacks">
+            <Link
+              to={{
+                pathname: "/categories"
+              }}
+              className="snackText"
+              style={{ color: "#03C6E5" }}
+            >
+              Categories
+            </Link>
+            <IconContext.Provider
+              value={{ color: "rgba(255,255,255,0.5)", size: 20 }}
+            >
+              <MdKeyboardArrowRight />
+            </IconContext.Provider>
+            <p className="snackText">{name}</p>
+          </div>
+        </div>
+        {this.state.movies.length !== 0 ? (
+          <Section
+            sort={true}
+            showAdult={showAdult}
+            activeFilter={activeFilter}
+            moviesList={moviesList}
+            title={name}
+            page={page}
+            updatePage={this.handlePage}
+            userBookmarks={userBookmarks}
+          />
+        ) : null}
+      </Layout>
+    );
+  }
 }
 
 export default Movies;

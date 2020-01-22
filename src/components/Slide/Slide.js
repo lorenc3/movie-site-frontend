@@ -1,156 +1,120 @@
-import React, { Component } from 'react';
-import ReactSwipe from 'react-swipe';
+import React, { Component } from "react";
+import ReactSwipe from "react-swipe";
+import { Link } from "react-router-dom";
 
-import Button from '../Button/Button';
-import './Slide.css';
-import Poster from '../Poster/Poster';
+import Button from "../Button/Button";
+import "./Slide.css";
+import Poster from "../Poster/Poster";
 
 let reactSwipe;
 
 class Slide extends Component {
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
 
-		this.renderSlide = this.renderSlide.bind(this);
-		this.handleSwipe = this.handleSwipe.bind(this);
-	}
+    this.renderSlide = this.renderSlide.bind(this);
+    this.handleSwipe = this.handleSwipe.bind(this);
+  }
 
-	handleSwipe() {
-		reactSwipe.next();
-	}
+  handleSwipe() {
+    reactSwipe.next();
+  }
 
-	renderSlide() {
-		const { nowPlaying, width, maxWidth, userBookmarks } = this.props;
-		return nowPlaying.map((item, key) => {
-			var bookmark =
-				userBookmarks !== null ? userBookmarks.includes(item.id) : null;
-			return (
-				<div key={key}>
-					<div
-						className="slideBox"
-						style={{
-							backgroundColor:
-								width >= maxWidth * 0.9
-									? 'rgba(0, 0, 0, 0.8)'
-									: 'white'
-						}}
-					>
-						{width >= maxWidth * 0.9 ? (
-							<img
-								className="backdrop"
-								src={`https://image.tmdb.org/t/p/original${
-									item.backdrop_path
-								}`}
-								alt="backdrop"
-							/>
-						) : null}
-						<div className="movieInfo">
-							<h1
-								className="titleText"
-								style={{
-									marginBottom:
-										item.title.length >= 37 ? '7%' : '13%',
-									color:
-										width <= maxWidth * 0.9
-											? 'black'
-											: 'white'
-								}}
-							>
-								{item.title}
-							</h1>
-							<p
-								className="summaryText"
-								style={{
-									color:
-										width <= maxWidth * 0.9
-											? 'black'
-											: 'white'
-								}}
-							>
-								{item.overview.length <= 350
-									? item.overview
-									: item.overview.replace(
-											/^(.{360}[^\s]*).*/,
-											'$1'
-									  ) + '...'}
-							</p>
-							<div className="ratingNext">
-								<div className="ratingBox">
-									<p
-										className="ratingText"
-										style={{
-											fontSize:
-												width <= maxWidth * 0.9
-													? 12
-													: 14
-										}}
-									>
-										{width <= maxWidth * 0.5
-											? item.vote_average + '/10'
-											: item.vote_average + ' / 10 TMDB'}
-									</p>
-								</div>
-								{width <= maxWidth * 0.9 ? (
-									<Button
-										swipe={this.handleSwipe}
-										boxStyle={{
-											margin: '15%',
-											marginLeft: '20%'
-										}}
-										textStyle={{ color: 'black' }}
-									/>
-								) : null}
-							</div>
-						</div>
-						<div
-							className="moviePoster"
-							style={{
-								marginTop: width <= maxWidth * 0.9 ? '6%' : '4%'
-							}}
-						>
-							{width >= maxWidth * 0.65 ? (
-								<Poster
-									size={300}
-									item={item}
-									fontSize={16}
-									bookmarked={bookmark}
-								/>
-							) : null}
-							{width >= maxWidth * 0.9 ? (
-								<Button
-									swipe={this.handleSwipe}
-									boxStyle={{
-										margin: '12%',
-										marginLeft: '95%'
-									}}
-									textStyle={{ color: 'white' }}
-								/>
-							) : null}
-						</div>
-					</div>
-				</div>
-			);
-		});
-	}
+  renderSlide() {
+    const { newest, width, maxWidth, userBookmarks, genres } = this.props;
+    let movieGenres = [];
+    return newest.map((item, key) => {
+      // Empty arr for every movie
+      movieGenres = [];
+      var bookmark =
+        userBookmarks !== null ? userBookmarks.includes(item.id) : null;
+      item.genre_ids.map(id => {
+        const genreName = genres[genres.findIndex(obj => obj.id === id)].name;
+        genreName === "Science Fiction"
+          ? movieGenres.push("Sci-Fi")
+          : movieGenres.push(genreName);
+      });
+      return (
+        <div key={key} style={{ display: "flex" }}>
+          <div className="slideBox">
+            <div className="backdropBox">
+              <img
+                className="backdrop"
+                src={`https://image.tmdb.org/t/p/original${item.backdrop_path}`}
+                alt="backdrop"
+              />
+            </div>
+            <div className="movieInfo">
+              <div className="titleBox1">
+                <p className="titleText">{item.title.toUpperCase()}</p>
+              </div>
+              <div className="infoBox">
+                <div className="summaryBox">
+                  <p className="summaryTitleText">QUICK INFO: </p>
+                  <p className="summaryText">
+                    {item.overview.length <= 350
+                      ? item.overview
+                      : item.overview.replace(/^(.{360}[^\s]*).*/, "$1") +
+                        "..."}
+                  </p>
+                </div>
+                <div className="ratingBox">
+                  <div className="rottenBox">
+                    <p className="rottenText">ROTTEN TOMATOES</p>
+                    <p className="rottenRating">
+                      {`${(
+                        parseFloat(item.vote_average) * 10 +
+                        2
+                      ).toString()}%`}
+                    </p>
+                  </div>
+                  <div className="imdbBox">
+                    <p className="imdbRating">{item.vote_average}</p>
+                    <p className="imdbText">IMDB</p>
+                  </div>
+                </div>
+                <div className="moreBox">
+                  <div className="genreBox">
+                    {movieGenres.slice(0, 4).map(name => (
+                      <div className="genre">
+                        <p className="creditsText" key={name}>
+                          {name}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="buttonBox">
+                    <Link to={`/details/${item.id}`} className="button">
+                      <p className="buttonText">WATCH</p>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    });
+  }
 
-	render() {
-		const { nowPlaying } = this.props;
-		return (
-			<ReactSwipe
-				childCount={nowPlaying.length}
-				swipeOptions={{
-					continuous: true,
-					auto: 10000,
-					speed: 3000,
-					disableScroll: false,
-					stopPropagation: false
-				}}
-				ref={el => (reactSwipe = el)}
-			>
-				{this.renderSlide()}
-			</ReactSwipe>
-		);
-	}
+  render() {
+    const { newest } = this.props;
+    return (
+      <ReactSwipe
+        childCount={newest.length}
+        swipeOptions={{
+          continuous: true,
+          auto: 5000,
+          speed: 3000,
+          disableScroll: false,
+          stopPropagation: false
+        }}
+        ref={el => (reactSwipe = el)}
+      >
+        {this.renderSlide()}
+      </ReactSwipe>
+    );
+  }
 }
 
 export default Slide;

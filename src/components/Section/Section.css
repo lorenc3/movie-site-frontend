@@ -1,58 +1,296 @@
 .sectionBox {
-	display: flex;
-	/* border: 2px solid #000000; */
-	flex-direction: column;
-	width: 100%;
-	height: 60%;
-	overflow: hidden;
-	background-color: rgba(255, 255, 255, 0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 25px;
+  width: 100%;
+}
+
+.sortContainer {
+  display: flex;
+  flex: 1;
+  width: 98.5%;
+  min-height: 60px;
+  max-height: 60px;
+  border-radius: 5px;
+  /* padding: 0px 20px 0px 20px; */
+  background-color: #1d2a39;
+  border: 0px solid red;
+}
+
+.sortBox1 {
+  display: flex;
+  flex: 1;
+  /* width: 80px; */
+  border: 0px solid white;
+}
+
+.sortTextBox {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: 50px;
+  padding-right: 5px;
+  /* width: 100%; */
+  border: 0px solid red;
+}
+
+.sortText1 {
+  margin: 0px;
+  font-family: "Raleway", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  word-spacing: 1px;
+  color: rgba(255, 255, 255, 0.28);
+  text-decoration: none;
+  border: 0px solid yellow;
+}
+
+.filterBox {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  border: 0px solid red;
+}
+
+.popUpBox {
+  display: flex;
+  z-index: 1;
+  top: 80%;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5px;
+  position: absolute;
+  height: 150px;
+  width: 120px;
+  background-color: rgba(77, 98, 124, 0.4);
+  border-radius: 5px;
+  backdrop-filter: blur(20px) contrast(80%);
+  transition: 0.2s ease;
+  opacity: 1;
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+  border: 0px solid red;
+}
+
+.popUpBoxHidden {
+  display: flex;
+  z-index: 1;
+  top: 80%;
+  flex-direction: column;
+  justify-content: center;
+  backdrop-filter: blur(20px) contrast(80%);
+  height: 0px;
+  width: 0px;
+  position: absolute;
+  transition: 0.2s ease;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.popUpButton {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+  height: 10px;
+  width: 100%;
+  background: none;
+  outline: none;
+  border: 0px solid yellow;
+}
+
+.popUpText {
+  margin: 0px;
+  font-family: "Raleway", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  word-spacing: 1px;
+  color: #f3f3f2;
+  text-decoration: none;
+}
+
+.filterButton {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border: none;
+  height: 50%;
+  background: none;
+  outline: none;
+  border: 0px solid yellow;
+}
+
+.arrowDown {
+  margin-top: 3px;
+  border: 0px solid yellow;
+}
+
+.filterText {
+  margin: 0px 3px 0px 4px;
+  font-family: "Raleway", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  word-spacing: 1px;
+  color: #f3f3f3;
+  text-decoration: none;
+}
+
+.typeBox {
+  display: flex;
+  width: 50px;
+  border: 0px solid red;
+}
+
+.adultContainer {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  border: 0px solid white;
+}
+
+.adultBox {
+  display: flex;
+  align-items: center;
+  margin-right: 50px;
+  border: 0px solid red;
+}
+
+.adultButton {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border: none;
+  height: 50%;
+  background: none;
+  outline: none;
+  border: 0px solid yellow;
+}
+
+.adultText {
+  margin: 0px 4px 0px 3px;
+  min-width: 58px;
+  font-family: "Raleway", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  word-spacing: 1px;
+  color: #f3f3f3;
+  text-decoration: none;
+  border: 0px solid yellow;
 }
 
 .postersBox {
-	display: flex;
-	padding-left: 8%;
-	padding-bottom: 2%;
-	flex-direction: row;
-	overflow: hidden;
-	/* border: 2px solid #000000; */
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px 0px 0px 0px;
+  justify-content: center;
+  align-items: center;
+  border: 0px solid red;
 }
 
 .posterBox {
-	display: flex;
-	align-items: center;
-	flex-direction: column;
+  display: flex;
+  align-items: center;
+  height: 370px;
+  width: 210px;
+  margin: 20px;
+  flex-direction: column;
+  /* border-bottom: 2px solid #1d2a39; */
+  border-radius: 5px;
+  border: 0px solid red;
 }
 
 .posterText {
-	font-family: 'Montserrat', sans-serif;
-	font-size: 16px;
-	font-weight: 600;
-	max-width: 190px;
-	word-wrap: break-word;
-	color: #ffffff;
-	letter-spacing: 1px;
-	word-spacing: 1px;
+  margin: 14px 0px 0px 0px;
+  font-family: "Raleway", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  max-width: 190px;
+  word-wrap: break-word;
+  color: #ffffff;
+  letter-spacing: 1px;
+  word-spacing: 1px;
 }
 
-.sectionTitleText {
-	font-family: 'Montserrat', sans-serif;
-	font-size: 20px;
-	font-weight: 600;
-	font-style: italic;
-	margin-top: 6%;
-	margin-bottom: 3%;
-	margin-left: 4%;
-	max-width: 200px;
-	text-align: start;
-	color: #ffffff;
-	letter-spacing: 1px;
-	word-spacing: 1px;
-	/* border: 2px solid #00ff9d; */
+.pageBox {
+  display: flex;
+  /* width: 300px; */
+  /* height: 50px; */
+  align-items: center;
+  margin: 40px 0px 100px 0px;
+  border: 0px solid red;
 }
 
-.sectionBtn {
-	display: flex;
-	align-items: center;
-	justify-content: flex-end;
-	width: 96vw;
+.allNumsBox {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  margin: 0px 30px 0px 30px;
+  justify-content: space-evenly;
+  border: 0px solid yellow;
+}
+
+.numBox {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: none;
+  outline: none;
+  border: 0px solid red;
+}
+
+.numBoxSelected {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  border: 0px solid white;
+}
+
+.numText {
+  margin: 0px;
+  font-family: "Raleway", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  word-spacing: 1px;
+  color: #f3f3f3;
+  text-decoration: none;
+}
+
+.nextBox1 {
+  display: flex;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  border: 0px solid white;
+}
+
+.nextText {
+  margin: 0px;
+  font-family: "Raleway", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  word-spacing: 1px;
+  color: #f3f3f3;
+  text-decoration: none;
 }

@@ -1,36 +1,44 @@
 {
-	"name": "elk",
-	"version": "0.1.0",
-	"private": true,
-	"dependencies": {
-		"axios": "^0.18.0",
-		"lodash": "^4.17.11",
-		"react": "^16.7.0",
-		"react-dom": "^16.7.0",
-		"react-icons": "^3.3.0",
-		"react-router-dom": "^4.3.1",
-		"react-scripts": "^2.1.5",
-		"react-swipe": "^6.0.4",
-		"rodal": "^1.6.3",
-		"swipe-js-iso": "^2.1.5"
-	},
-	"scripts": {
-		"start": "react-scripts start",
-		"build": "react-scripts build",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject"
-	},
-	"webkit": {
-		"plugin": true
-	},
-	"eslintConfig": {
-		"extends": "react-app"
-	},
-	"browserslist": [
-		">0.2%",
-		"not dead",
-		"not ie <= 11",
-		"not op_mini all"
-	],
-	"devDependencies": {}
+  "name": "elk",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "lodash": "^4.17.11",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-icons": "^3.3.0",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "^2.1.5",
+    "react-swipe": "^6.0.4",
+    "rodal": "^1.6.3",
+    "swipe-js-iso": "^2.1.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "webkit": {
+    "plugin": true
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.16.0",
+    "prettier-eslint": "^9.0.0"
+  }
 }

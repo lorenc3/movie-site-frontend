@@ -1,93 +1,136 @@
 .menu {
-	display: flex;
-	align-items: center;
-	justify-content: space-around;
-	flex-direction: row;
-	margin: 0;
-	top: 0;
-	z-index: 1;
-	width: 100%;
-	transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* overflow: auto; */
+  width: 100%;
+  padding: 5px 0px 5px 10px;
+  background-color: #141d26;
+  transition: all 0.2s ease-in-out;
+  border-bottom: 1px solid #1d2a39;
+}
+
+.logoBox {
+  display: flex;
+  align-items: center;
+  min-width: 180px;
+  flex-direction: row;
+  cursor: pointer;
+  border: 0px solid red;
+}
+
+.iconCont {
+  display: flex;
+  position: relative;
+  text-align: center;
+  border: 0px solid blue;
+}
+
+.iconText {
+  font-family: "Raleway", sans-serif;
+  font-size: 18px;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 800;
+  letter-spacing: 1px;
+  word-spacing: 1px;
+  color: #141d26;
+  transition: all 0.2s ease-in-out;
+}
+
+.logoTextCont {
+  display: flex;
+  border: 0px solid orange;
+}
+
+.logoText {
+  margin: 0px auto;
+  font-family: "Raleway", sans-serif;
+  font-size: 15px;
+  max-width: 13ch;
+  white-space: pre-line;
+  font-weight: 600;
+  letter-spacing: 2px;
+  word-spacing: 1px;
+  color: white;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
 }
 
 .menuBox {
-	display: flex;
-	align-items: center;
-	flex-direction: row;
+  display: flex;
+  flex: 0.45;
+  min-width: 600px;
+  padding-right: 20px;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: row;
+  border: 0px solid red;
+}
+
+.activeBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 90px;
+  border-radius: 2px;
 }
 
 .menuText {
-	font-family: 'Montserrat', sans-serif;
-	border: none;
-	outline: none;
-	background: none;
-	margin-left: 3vw;
-	font-size: 14px;
-	font-weight: 600;
-	letter-spacing: 1px;
-	word-spacing: 1px;
-	color: #d8d8d8;
-	text-decoration: none;
-	transition: all 0.2s ease-in-out;
-	cursor: pointer;
+  font-family: "Raleway", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  word-spacing: 1px;
+  color: #f3f3f3;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
 }
 
 .menuText:hover {
-	color: #000000;
-	font-weight: 600;
-}
-
-.logo {
-	width: 60px;
+  opacity: 0.8;
 }
 
 .searchBox {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-}
-
-.search {
-	display: flex;
-	margin-left: 3vw;
-	align-items: center;
-}
-
-.searchBtn {
-	border: none;
-	outline: none;
-	background: none;
-	margin-left: -30px;
-	cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  height: 28px;
+  width: 180px;
+  padding: 0 5px 0 5px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  justify-content: center;
+  align-items: center;
+  border: 0.1px solid #dededf;
 }
 
 .searchInput {
-	border: none;
-	font-size: calc(10px + 0.6vmin);
-	padding-left: 5px;
-	padding-right: 20px;
-	outline: none;
-	font-weight: 500;
-	font-family: 'Montserrat', sans-serif;
-	letter-spacing: 1px;
-	word-spacing: 1px;
-	border-bottom: 1.4px solid rgb(204, 204, 204);
-	transition: all 0.1s ease-in-out;
-}
-
-.searchInput:focus {
-	border-bottom: 2px solid rgb(34, 130, 255);
-	border-radius: 5px;
-	font-weight: 500;
-	font-family: 'Montserrat', sans-serif;
-	letter-spacing: 1px;
-	word-spacing: 1px;
+  background-color: transparent;
+  display: flex;
+  flex: 1;
+  padding-left: 5px;
+  padding-right: 5px;
+  height: 100%;
+  border: none;
+  font-size: 11px;
+  color: #f3f3f3;
+  font-weight: 500;
+  font-family: "Raleway", sans-serif;
+  letter-spacing: 1px;
+  border: 0px solid white;
+  transition: all 0.1s ease-in-out;
 }
 
 .searchInput::placeholder {
-	font-family: 'Montserrat', sans-serif;
-	font-weight: 500;
-	color: #d8d8d8;
-	letter-spacing: 1px;
-	word-spacing: 1px;
+  color: #cecece;
+}
+
+.searchInput:focus {
+  outline: none;
 }
